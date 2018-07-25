@@ -6,13 +6,31 @@
   "scripts": {
     "lint": "eslint packages/**/*.js",
     "test": "echo 'test'",
+    "prebuild": "npm run clean",
     "build": "run-p build:*",
     "build:jQuery": "gulp build:$",
     "build:native": "gulp build:native",
     "dev:$": "type=$ name=${name} npm run bs",
     "dev:native": "type=native name=${name} npm run bs",
-    "clear": "rm -rf packages/**/dist",
+    "clean": "rimraf packages/**/dist",
     "bs": "browser-sync start --server packages/${type}/${name} --files '**/*.*'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "packages/**/*.{html,js}": [
+        "npm run lint",
+        "eslint --fix",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "packages/**/dist/**/*.js"
+    ]
   },
   "repository": "git@glab.tagtic.cn:gusaifei/utility.git",
   "author": "(gusaifei <gusaifei@donews.com>)",
@@ -23,6 +41,9 @@
     "eslint": "^5.2.0",
     "eslint-plugin-html": "^4.0.5",
     "gulp": "^3.9.1",
-    "npm-run-all": "^4.1.3"
+    "husky": "^1.0.0-rc.13",
+    "lint-staged": "^7.2.0",
+    "npm-run-all": "^4.1.3",
+    "rimraf": "^2.6.2"
   }
 }
