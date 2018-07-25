@@ -1,0 +1,28 @@
+{
+  "name": "utility",
+  "version": "0.0.0",
+  "description": "donews 工具集",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint packages/**/*.js",
+    "test": "echo 'test'",
+    "build": "run-p build:*",
+    "build:jQuery": "gulp build:$",
+    "build:native": "gulp build:native",
+    "dev:$": "type=$ name=${name} npm run bs",
+    "dev:native": "type=native name=${name} npm run bs",
+    "clear": "rm -rf packages/**/dist",
+    "bs": "browser-sync start --server packages/${type}/${name} --files '**/*.*'"
+  },
+  "repository": "git@glab.tagtic.cn:gusaifei/utility.git",
+  "author": "(gusaifei <gusaifei@donews.com>)",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "browser-sync": "^2.24.6",
+    "eslint": "^5.2.0",
+    "eslint-plugin-html": "^4.0.5",
+    "gulp": "^3.9.1",
+    "npm-run-all": "^4.1.3"
+  }
+}
