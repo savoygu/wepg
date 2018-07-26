@@ -10,8 +10,9 @@
     "build": "run-p build:*",
     "build:jQuery": "gulp build:$",
     "build:native": "gulp build:native",
-    "dev:$": "type=$ name=${name} npm run bs",
-    "dev:native": "type=native name=${name} npm run bs",
+    "bootstrap": "(yarn || npm install) && bower install",
+    "dev:$": "npm run bootstrap && type=$ name=${name} npm run bs",
+    "dev:native": "npm run bootstrap && type=native name=${name} npm run bs",
     "clean": "rimraf packages/**/dist",
     "bs": "browser-sync start --server packages/${type}/${name} --files '**/*.*'"
   },
