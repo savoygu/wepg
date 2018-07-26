@@ -1,0 +1,22 @@
+{
+  "name": "utility",
+  "description": "donews 工具集",
+  "main": "index.js",
+  "authors": [
+    "(gusaifei <gusaifei@donews.com>)"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "normalize.css": "^8.0.0"
+  }
+}
