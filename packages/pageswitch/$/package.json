@@ -6,9 +6,18 @@
   "repository": "https://github.com/wepg/wepg/tree/develop/packages/pageswitch/%24",
   "author": "savoygu <savoygu@126.com>",
   "license": "MIT",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/pageswitch/native",
+  "keywords": [
+    "wepg",
+    "pageswitch",
+    "jquery"
+  ],
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "gitHead": "4d9bf047fff3bfcebb0d8c602534c7255092ce76"
 }

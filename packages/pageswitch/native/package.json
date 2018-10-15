@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "author": "savoygu <savoygu@126.com>",
   "license": "MIT",
-  "private": false,
   "publishConfig": {
     "access": "public"
   },
@@ -17,5 +16,6 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "gitHead": "4d9bf047fff3bfcebb0d8c602534c7255092ce76"
 }

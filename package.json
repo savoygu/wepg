@@ -1,8 +1,6 @@
 {
   "name": "wepg",
-  "version": "0.0.0",
   "description": "web 常用插件",
-  "main": "index.js",
   "scripts": {
     "lint": "eslint packages/**/*.js",
     "test": "echo 'test'",
@@ -43,7 +41,7 @@
   "repository": "git@github.com:wepg/wepg.git",
   "author": "(savoygu <savoygu@126.com>)",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",

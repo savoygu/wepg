@@ -1,3 +1,5 @@
 /node_modules/
 /bower_components/
 /packages/**/dist/
+yarn-error.log
+*.tgz
