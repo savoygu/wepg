@@ -2,8 +2,26 @@
  * PageSwitch 全屏滚动
  *
  * 配置参数：
+ *    selectors: {
+ *       sections: '.sections',
+ *       section: '.section',
+ *       page: '.pages',
+ *       active: '.active'
+ *     },
+ *     index: 0, // 页面开始的索引
+ *     easing: 'ease', // 动画效果
+ *     duration: 500, // 动画执行时间
+ *     loop: false, // 是否循环切换
+ *     pagination: true, // 是否进行分页
+ *     keyboard: true, // 是否支持键盘事件
+ *     direction: 'vertical', // 滑动方向 vertical, horizontal
+ *     callback: '' // 动画执行结束后的回调函数
  *
  * 使用方式：
+ *  new PageSwitch('#container', {
+ *    direction: 'horizontal',
+ *    loop: true
+ * })
  */
 (function(window, document) {'use strict';
   var defaultOptions = {
