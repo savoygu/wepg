@@ -1,0 +1,21 @@
+{
+  "name": "@wepg/pageswitch",
+  "version": "0.0.0",
+  "description": "原生 pageswitch 插件",
+  "main": "dist/index.js",
+  "author": "savoygu <savoygu@126.com>",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/pageswitch/native",
+  "keywords": [
+    "wepg",
+    "pageswitch"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ]
+}

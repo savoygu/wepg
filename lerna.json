@@ -1,0 +1,17 @@
+{
+  "version": "0.0.0",
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "*.md",
+        "material/**",
+        "package.json"
+      ]
+    }
+  },
+  "packages": ["packages/**"],
+  "npmClient": "yarn",
+  "npmClientArgs": [
+    "--no-lockfile"
+  ]
+}
