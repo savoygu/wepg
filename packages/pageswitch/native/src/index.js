@@ -61,16 +61,19 @@
     return false;
   })(document.createElement(PageSwitch));
 
+  /*去除空格 */
   var trim = function (string) {
     return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
   };
 
+  /*转换为驼峰标识 */
   var camelCase = function (name) {
     return name.replace(SPECIAL_CHARS_REGEXP, function (_, separator, letter, offset) {
       return offset ? letter.toUpperCase() : letter;
     }).replace(MOZ_HACK_REGEXP, 'Moz$1');
   };
 
+  /*绑定事件 */
   var on = (function () {
     if (document.addEventListener) {
       return function (element, event, handler) {
@@ -87,6 +90,7 @@
     }
   })();
 
+  /*设置样式 */
   var setStyle = function (element, styleName, value) {
     if (!element || !styleName) return;
 
@@ -106,6 +110,7 @@
     }
   };
 
+  /*是否包含 class */
   var hasClass = function (el, cls) {
     if (!el || !cls) return false;
     if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
@@ -116,6 +121,7 @@
     }
   };
 
+  /*添加 class */
   var addClass = function (el, cls) {
     if (!el) return;
     var curClass = el.className;
@@ -138,6 +144,7 @@
     }
   };
 
+  /*移除 class */
   var removeClass = function (el, cls) {
     if (!el || !cls) return;
     var classes = cls.split(' ');
@@ -160,6 +167,7 @@
     }
   };
 
+  /*获取 left 和 top 距离 */
   var getOffset = function (el) {
     var box = el.getBoundingClientRect();
 
