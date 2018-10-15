@@ -1,7 +1,7 @@
 {
-  "name": "utility",
+  "name": "wepg",
   "version": "0.0.0",
-  "description": "donews 工具集",
+  "description": "web 常用插件",
   "main": "index.js",
   "scripts": {
     "lint": "eslint packages/**/*.js",
