@@ -1,5 +1,5 @@
 {
-  "name": "@wepg/wepg",
+  "name": "wepg",
   "version": "0.0.0",
   "description": "web 常用插件",
   "main": "index.js",
@@ -40,8 +40,8 @@
       "@commitlint/config-conventional"
     ]
   },
-  "repository": "git@glab.tagtic.cn:gusaifei/utility.git",
-  "author": "(gusaifei <gusaifei@donews.com>)",
+  "repository": "git@github.com:wepg/wepg.git",
+  "author": "(savoygu <savoygu@126.com>)",
   "license": "MIT",
   "private": false,
   "devDependencies": {

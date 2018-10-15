@@ -3,11 +3,11 @@
   "description": "web 常用插件",
   "main": "index.js",
   "authors": [
-    "(gusaifei <gusaifei@donews.com>)"
+    "(savoygu <savoygu@126.com>)"
   ],
   "license": "MIT",
-  "homepage": "",
-  "private": true,
+  "homepage": "https://github.com/wepg/wepg",
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
