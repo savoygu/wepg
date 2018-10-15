@@ -18,10 +18,10 @@
  *     callback: '' // 动画执行结束后的回调函数
  *
  * 使用方式：
- *  new PageSwitch('#container', {
- *    direction: 'horizontal',
- *    loop: true
- * })
+ *    new PageSwitch('#container', {
+ *      direction: 'horizontal',
+ *      loop: true
+ *    })
  */
 (function(window, document) {'use strict';
   var defaultOptions = {
