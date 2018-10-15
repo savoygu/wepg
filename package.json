@@ -1,5 +1,5 @@
 {
-  "name": "wepg",
+  "name": "@wepg/wepg",
   "version": "0.0.0",
   "description": "web 常用插件",
   "main": "index.js",
@@ -43,7 +43,7 @@
   "repository": "git@glab.tagtic.cn:gusaifei/utility.git",
   "author": "(gusaifei <gusaifei@donews.com>)",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
