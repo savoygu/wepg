@@ -14,7 +14,7 @@
     "dev:$": "npm run bootstrap && type=$ name=${name} npm run bs",
     "dev:native": "npm run bootstrap && type=native name=${name} npm run bs",
     "clean": "rimraf packages/**/dist",
-    "bs": "browser-sync start --server packages/${type}/${name} --files '**/*.*'",
+    "bs": "browser-sync start --server packages/${name}/${type} --files '**/*.*'",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "husky": {

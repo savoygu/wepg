@@ -4,8 +4,9 @@ var gulp = require('gulp');
 
 var paths = {
   baseDIR: 'packages',
-  base$DIR: 'packages/$',
-  baseNativeDIR: 'packages/native'
+  genTypedDIR: function (name, type)  {
+    return 'packages/' + name + '/' + type;
+  }
 };
 
 function getPlugins(path) {
@@ -13,20 +14,23 @@ function getPlugins(path) {
   return names;
 }
 
-function buildPlugins (baseDIR, pluginNames) {
+function buildPlugins (type) {
+  var pluginNames = getPlugins(paths.baseDIR);
+  pluginNames = pluginNames.filter(function (name) { return name.indexOf('.') === -1; });
+
   pluginNames.forEach(function (name) {
-    var pluginDIR = baseDIR+ '/' + name;
+    var pluginDIR = paths.genTypedDIR(name, type);
     gulp.src(path.join(pluginDIR, 'src/index.js'))
       .pipe(gulp.dest(path.join(pluginDIR, 'dist')));
   });
 }
 
 gulp.task('build:$', function () {
-  buildPlugins(paths.base$DIR, getPlugins(paths.base$DIR));
+  buildPlugins('$');
 });
 
 gulp.task('build:native', function () {
-  buildPlugins(paths.baseNativeDIR, getPlugins(paths.baseNativeDIR));
+  buildPlugins('native');
 });
 
 gulp.task('build', ['build:$', 'build:native'], function () {
