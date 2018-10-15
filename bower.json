@@ -1,6 +1,6 @@
 {
-  "name": "utility",
-  "description": "donews 工具集",
+  "name": "wepg",
+  "description": "web 常用插件",
   "main": "index.js",
   "authors": [
     "(gusaifei <gusaifei@donews.com>)"
