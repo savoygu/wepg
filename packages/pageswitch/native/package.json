@@ -1,7 +1,7 @@
 {
   "name": "@wepg/pageswitch",
   "moduleName": "PageSwitch",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "原生 pageswitch 插件",
   "main": "./dist/pageswitch.js",
   "module": "./dist/pageswitch.esm.js",
