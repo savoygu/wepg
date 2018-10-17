@@ -4,14 +4,18 @@
   ],
   "env": {
     "browser": true,
-    "commonjs": true
+    "commonjs": true,
+    "node": true,
+    "es6": true
   },
   "globals": {
-    "jQuery": false
+    "jQuery": false,
+    "define": false
   },
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 5
+    "ecmaVersion": 2017,
+    "sourceType": "module"
   },
   "rules": {
     "indent": [

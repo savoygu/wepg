@@ -1,8 +1,12 @@
 {
   "name": "@wepg/pageswitch",
+  "moduleName": "PageSwitch",
   "version": "0.0.4",
   "description": "原生 pageswitch 插件",
-  "main": "dist/index.js",
+  "main": "./dist/pageswitch.js",
+  "module": "./dist/pageswitch.esm.js",
+  "jsnext:main": "./dist/pageswitch.esm.js",
+  "unpkg": "./dist/pageswitch.min.js",
   "author": "savoygu <savoygu@126.com>",
   "license": "MIT",
   "publishConfig": {
@@ -14,8 +18,7 @@
     "pageswitch"
   ],
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "gitHead": "4d9bf047fff3bfcebb0d8c602534c7255092ce76"
 }
