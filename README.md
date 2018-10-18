@@ -12,6 +12,13 @@ npm install @wepg/pageswitch
 npm install @wepg/pageswitch-jquery
 ```
 
+## 新建插件开发结构
+
+```bash
+# Carousel 会作为全局对象，所以首字符必须大写
+npm run new -- Carousel 轮播图
+```
+
 ## 项目诞生
 
 ## 项目搭建
