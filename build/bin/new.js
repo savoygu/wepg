@@ -79,16 +79,30 @@ export default class ${PluginName}{
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>${PluginName} ${chineseName}</title>
+  <title>原生 ${PluginName} ${chineseName}插件</title>
   <style>
     * {
       margin: 0;
       padding: 0;
     }
+    html, body {
+      height: 100%;
+    }
+    #container {
+      height: 100%;
+      background-color: burlywood;
+    }
+    h1 {
+      padding-top: 80px;
+      text-align: center;
+      color: white;
+    }
   </style>
 </head>
 <body>
-    <div id="container"></div>
+  <div id="container">
+    <h1>Thanks，开始开发原生 ${PluginName} ${chineseName}插件吧！</h1>
+  </div>
 </body>
 <script src="./dist/${pluginname}.js"></script>
 <script>
@@ -176,16 +190,30 @@ const Files = [
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>${PluginName} ${chineseName}</title>
+  <title>jQuery ${PluginName} ${chineseName}插件</title>
   <style>
     * {
       margin: 0;
       padding: 0;
     }
+    html, body {
+      height: 100%;
+    }
+    #container {
+      height: 100%;
+      background-color: burlywood;
+    }
+    h1 {
+      padding-top: 80px;
+      text-align: center;
+      color: white;
+    }
   </style>
 </head>
 <body>
-    <div id="container"></div>
+  <div id="container">
+    <h1>Thanks，开始开发jQuery ${PluginName} ${chineseName}插件吧！</h1>
+  </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="./src/index.js"></script>
