@@ -1,33 +1,52 @@
-var fs = require('fs');
-var path = require('path');
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var pump = require('pump');
-// var sourcemaps = require('gulp-sourcemaps');
-var rollup = require('gulp-better-rollup');
-var babel = require('rollup-plugin-babel');
-// var uglify = require('rollup-plugin-uglify').uglify;
-var browserSync = require('browser-sync').create();
-var reload = browserSync.reload;
-var minimist = require('minimist');
+const fs = require('fs');
+const path = require('path');
+const gulp = require('gulp');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
+const pump = require('pump');
+// const sourcemaps = require('gulp-sourcemaps');
+const rollup = require('gulp-better-rollup');
+const babel = require('rollup-plugin-babel');
+// const uglify = require('rollup-plugin-uglify').uglify;
+const browserSync = require('browser-sync').create();
+const reload = browserSync.reload;
+const minimist = require('minimist');
 
-var paths = {
+const paths = {
   baseDIR: 'packages',
   genTypedDIR: function(name, type)  {
     return 'packages/' + name + '/' + type;
   }
 };
 
-var knownOptions = {
+const knownOptions = {
   string:' name'
 };
 
-var options = minimist(process.argv.slice(2), knownOptions);
+const options = minimist(process.argv.slice(2), knownOptions);
 
-function createPipe(pluginDIR, config) {
-  var min = config.env === 'production';
-  var next = gulp.src(path.join(pluginDIR, 'src/index.js'))
+const create$Pipe = (pluginDIR, source, name, min) => {
+  return [
+    gulp.src(path.join(pluginDIR, source)),
+    min && uglify(),
+    rename(function (path) {
+      min ? path.extname = '.min.js' : path.basename = name;
+    }),
+    gulp.dest(path.join(pluginDIR, 'dist'))
+  ].filter(Boolean);
+};
+
+const generate$File = (name, type) => {
+  const pluginDIR = paths.genTypedDIR(name, type);
+  pump(
+    create$Pipe(pluginDIR, 'src/index.js', name),
+    () => pump(create$Pipe(pluginDIR, 'dist/' + name + '.js', name, true))
+  );
+};
+
+const createNativePipe = (pluginDIR, config) => {
+  const min = config.env === 'production';
+  let next = gulp.src(path.join(pluginDIR, 'src/index.js'))
     // .pipe(sourcemaps.write())
     .pipe(rollup({
       plugins: [
@@ -51,32 +70,12 @@ function createPipe(pluginDIR, config) {
   }
   // next = next.pipe(sourcemaps.write());
   next.pipe(gulp.dest(path.join(pluginDIR, 'dist')));
-}
+};
 
-function generate$File(name, type) {
-  var pluginDIR = paths.genTypedDIR(name, type);
-  pump([
-    gulp.src(path.join(pluginDIR, 'src/index.js')),
-    rename(function (path) {
-      path.basename = name;
-    }),
-    gulp.dest(path.join(pluginDIR, 'dist'))
-  ], function () {
-    pump([
-      gulp.src(path.join(pluginDIR, 'dist/' + name + '.js')),
-      uglify(),
-      rename(function (path) {
-        path.extname = '.min.js';
-      }),
-      gulp.dest(path.join(pluginDIR, 'dist'))
-    ]);
-  });
-}
-
-function generateNativeFile(name, type) {
-  var pluginDIR = paths.genTypedDIR(name, type);
-  var pkg = require('./packages/' + name + '/' + type + '/package.json');
-  var configs = {
+const generateNativeFile = (name, type) => {
+  const pluginDIR = paths.genTypedDIR(name, type);
+  const pkg = require('./packages/' + name + '/' + type + '/package.json');
+  const configs = {
     regular_umd: {
       output: { file: pkg.main, format: 'umd', name: pkg.moduleName }
     },
@@ -88,23 +87,23 @@ function generateNativeFile(name, type) {
       env: 'production'
     },
   };
-  var buildTypes = Object.keys(configs);
-  buildTypes.map(function (buildType) {
-    return createPipe(pluginDIR, configs[buildType]);
-  });
-}
+  const buildTypes = Object.keys(configs);
+  buildTypes.map(buildType => createNativePipe(pluginDIR, configs[buildType]));
+};
 
-function buildPlugins(type, name) {
+const buildPlugins = (type, name) => {
   if (name) { // 开发原生插件
     return generateNativeFile(name, type);
   }
 
   fs.readdirSync(paths.baseDIR)
-    .filter(function(name) { return name.indexOf('.') === -1; })
-    .map(function(pluginName) {
-      return type === 'native' ? generateNativeFile(pluginName, type) : generate$File(pluginName, type);
-    });
-}
+    .filter(name => name.indexOf('.') === -1)
+    .map(pluginName => (
+      type === 'native' ?
+        generateNativeFile(pluginName, type) :
+        generate$File(pluginName, type)
+    ));
+};
 
 gulp.task('serve', ['build:native'], function() {
   browserSync.init({
