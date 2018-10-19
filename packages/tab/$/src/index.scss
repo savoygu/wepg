@@ -1,0 +1,41 @@
+@import "sass-bem/bem";
+
+$bem-component-namespace: 'wepg';
+
+@include c(tab) {
+  width: 300px;
+
+  @include e(nav) {
+    list-style: none;
+    height: 30px;
+
+    li {
+      float: left;
+      height: 30px;
+      margin-right: 5px;
+      padding: 0 20px;
+      font-size: 12px;
+      line-height: 30px;
+      color: #fff;
+      background-color: #767676;
+      border-radius: 3px 3px 0 0;
+      cursor: pointer;
+
+      &.active {
+        color: red;
+      }
+    }
+  }
+
+  @include e(content) {
+    //body
+  }
+
+  @include e(pane) {
+
+    &.active {
+
+    }
+  }
+
+}

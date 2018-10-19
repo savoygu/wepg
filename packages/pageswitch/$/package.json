@@ -1,9 +1,9 @@
 {
   "name": "@wepg/pageswitch-jquery",
   "version": "0.0.5",
-  "description": "jQuery pageswitch 插件",
-  "main": "dist/index.js",
-  "repository": "https://github.com/wepg/wepg/tree/develop/packages/pageswitch/native",
+  "description": "jQuery PageSwitch 插件",
+  "main": "./dist/pageswitch.min.js",
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/pageswitch/$",
   "author": "savoygu <savoygu@126.com>",
   "license": "MIT",
   "publishConfig": {
@@ -17,6 +17,5 @@
   "files": [
     "dist",
     "src"
-  ],
-  "gitHead": "4d9bf047fff3bfcebb0d8c602534c7255092ce76"
+  ]
 }

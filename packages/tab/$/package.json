@@ -1,0 +1,21 @@
+{
+  "name": "@wepg/tab-jquery",
+  "version": "0.0.0",
+  "description": "jQuery Tab 插件",
+  "main": "./dist/tab.min.js",
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/tab/$",
+  "author": "savoygu <savoygu@126.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "wepg",
+    "tab",
+    "jquery"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ]
+}

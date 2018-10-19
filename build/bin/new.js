@@ -173,7 +173,7 @@ $bem-component-namespace: 'wepg';
 @include c(${pluginname}) {}`
   },
   {
-    filename: 'src/index.css',
+    filename: `dist/${pluginname}.css`,
     content: ''
   },
   {
@@ -226,7 +226,7 @@ $bem-component-namespace: 'wepg';
       color: white;
     }
   </style>
-  <link rel="stylesheet" href="./src/index.css">
+  <link rel="stylesheet" href="./dist/${pluginname}.css">
 </head>
 <body>
   <h1>Thanks，开始开发jQuery ${PluginName} ${chineseName}插件吧！</h1>

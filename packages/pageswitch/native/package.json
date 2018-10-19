@@ -2,7 +2,7 @@
   "name": "@wepg/pageswitch",
   "moduleName": "PageSwitch",
   "version": "0.0.5",
-  "description": "原生 pageswitch 插件",
+  "description": "原生 PageSwitch 插件",
   "main": "./dist/pageswitch.js",
   "module": "./dist/pageswitch.esm.js",
   "jsnext:main": "./dist/pageswitch.esm.js",
@@ -18,7 +18,7 @@
     "pageswitch"
   ],
   "files": [
-    "dist"
-  ],
-  "gitHead": "4d9bf047fff3bfcebb0d8c602534c7255092ce76"
+    "dist",
+    "src"
+  ]
 }

@@ -1,0 +1,24 @@
+{
+  "name": "@wepg/tab",
+  "moduleName": "Tab",
+  "version": "0.0.0",
+  "description": "原生 Tab 插件",
+  "main": "./dist/tab.js",
+  "module": "./dist/tab.esm.js",
+  "jsnext:main": "./dist/tab.esm.js",
+  "unpkg": "./dist/tab.min.js",
+  "author": "savoygu <savoygu@126.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/tab/native",
+  "keywords": [
+    "wepg",
+    "tab"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ]
+}

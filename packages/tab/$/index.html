@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jQuery Tab 选项卡插件</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      background-color: burlywood;
+    }
+    h1 {
+      padding: 60px 0 20px;
+      text-align: center;
+      color: white;
+    }
+  </style>
+  <link rel="stylesheet" href="./dist/tab.css">
+</head>
+<body>
+  <h1>Thanks，开始开发jQuery Tab 选项卡插件吧！</h1>
+
+  <div class="wepg-tab">
+    <ul class="wepg-tab__nav">
+      <li class="active">新闻</li>
+      <li>娱乐</li>
+      <li>电影</li>
+      <li>科技</li>
+    </ul>
+    <div class="wepg-tab__content">
+      <div class="wepg-tab__pane active"></div>
+      <div class="wepg-tab__pane"></div>
+      <div class="wepg-tab__pane"></div>
+      <div class="wepg-tab__pane"></div>
+    </div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="./src/index.js"></script>
+<script>
+  /* eslint-disable */
+  $('#container').Tab({})
+  /* eslint-disable */
+</script>
+</html>
