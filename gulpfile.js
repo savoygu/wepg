@@ -3,6 +3,7 @@ const path = require('path');
 const gulp = require('gulp');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
+const sass = require('gulp-sass');
 const pump = require('pump');
 // const sourcemaps = require('gulp-sourcemaps');
 const rollup = require('gulp-better-rollup');
@@ -12,11 +13,11 @@ const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 const minimist = require('minimist');
 
+sass.compiler = require('node-sass');
+
 const paths = {
-  baseDIR: 'packages',
-  genTypedDIR: function(name, type)  {
-    return 'packages/' + name + '/' + type;
-  }
+  basePath: 'packages',
+  getFullPath: (pluginName, pluginType, filePath) => path.join('./packages', pluginName, pluginType, filePath)
 };
 
 const knownOptions = {
@@ -25,28 +26,46 @@ const knownOptions = {
 
 const options = minimist(process.argv.slice(2), knownOptions);
 
-const create$Pipe = (pluginDIR, source, name, min) => {
+const createSassPipe = (name, type, min) => {
   return [
-    gulp.src(path.join(pluginDIR, source)),
-    min && uglify(),
-    rename(function (path) {
-      min ? path.extname = '.min.js' : path.basename = name;
+    gulp.src(paths.getFullPath(name, type, 'src/*.scss')),
+    sass.sync({
+      outputStyle: min ? 'compressed' : 'expanded',
+      includePaths: ['node_modules']
+    }).on('error', sass.logError),
+    rename(path => {
+      path.basename = name;
+      min && (path.extname = '.min.css');
     }),
-    gulp.dest(path.join(pluginDIR, 'dist'))
+    gulp.dest(paths.getFullPath(name, type, 'dist'))
   ].filter(Boolean);
 };
 
-const generate$File = (name, type) => {
-  const pluginDIR = paths.genTypedDIR(name, type);
-  pump(
-    create$Pipe(pluginDIR, 'src/index.js', name),
-    () => pump(create$Pipe(pluginDIR, 'dist/' + name + '.js', name, true))
-  );
+const generateSassFile = (name, type) => pump(
+  createSassPipe(name, type),
+  () => pump(createSassPipe(name, type, true))
+);
+
+const create$Pipe = (name, type, min) => {
+  return [
+    gulp.src(paths.getFullPath(name, type, 'src/index.js')),
+    min && uglify(),
+    rename(path => {
+      path.basename = name;
+      min && (path.extname = '.min.js');
+    }),
+    gulp.dest(paths.getFullPath(name, type, 'dist'))
+  ].filter(Boolean);
 };
 
-const createNativePipe = (pluginDIR, config) => {
+const generate$File = (name, type) => pump(
+  create$Pipe(name, type),
+  () => pump(create$Pipe(name, type, true))
+);
+
+const createNativePipe = (name, type, config) => {
   const min = config.env === 'production';
-  let next = gulp.src(path.join(pluginDIR, 'src/index.js'))
+  let next = gulp.src(paths.getFullPath(name, type, 'src/index.js'))
     // .pipe(sourcemaps.write())
     .pipe(rollup({
       plugins: [
@@ -69,11 +88,10 @@ const createNativePipe = (pluginDIR, config) => {
     next = next.pipe(uglify());
   }
   // next = next.pipe(sourcemaps.write());
-  next.pipe(gulp.dest(path.join(pluginDIR, 'dist')));
+  next.pipe(gulp.dest(paths.getFullPath(name, type, 'dist')));
 };
 
 const generateNativeFile = (name, type) => {
-  const pluginDIR = paths.genTypedDIR(name, type);
   const pkg = require('./packages/' + name + '/' + type + '/package.json');
   const configs = {
     regular_umd: {
@@ -88,39 +106,42 @@ const generateNativeFile = (name, type) => {
     },
   };
   const buildTypes = Object.keys(configs);
-  buildTypes.map(buildType => createNativePipe(pluginDIR, configs[buildType]));
+  buildTypes.map(buildType => createNativePipe(name, type, configs[buildType]));
 };
 
 const buildPlugins = (type, name) => {
-  if (name) { // 开发原生插件
+  if (name !== undefined) { // 开发原生插件
     return generateNativeFile(name, type);
   }
 
-  fs.readdirSync(paths.baseDIR)
+  fs.readdirSync(paths.basePath)
     .filter(name => name.indexOf('.') === -1)
-    .map(pluginName => (
+    .map(pluginName => {
+      generateSassFile(pluginName, type);
+
       type === 'native' ?
         generateNativeFile(pluginName, type) :
-        generate$File(pluginName, type)
-    ));
+        generate$File(pluginName, type);
+    });
 };
 
-gulp.task('serve', ['build:native'], function() {
+gulp.task('serve', ['build:native'], () => {
   browserSync.init({
     server: './packages/' + options.name + '/native'
   });
 
-  gulp.watch('./packages/' + options.name + '/native/src/*.js', ['build:native']);
-  gulp.watch(['./packages/' + options.name + '/native/**/*.*']).on('change', reload);
+  gulp.watch(paths.getFullPath(options.name, 'native', 'src/*.scss'), ['sass']);
+  gulp.watch(paths.getFullPath(options.name, 'native', 'src/*.js'), ['build:native']);
+  gulp.watch([
+    paths.getFullPath(options.name, 'native', '**/*.html'),
+    paths.getFullPath(options.name, 'native', '**/*.css'),
+    paths.getFullPath(options.name, 'native', '**/*.js')
+  ]).on('change', reload);
 });
 
-gulp.task('build:$', function() {
-  buildPlugins('$');
-});
-
-gulp.task('build:native', function() {
-  buildPlugins('native', options.name);
-});
+gulp.task('sass', () => generateSassFile(options.name, 'native'));
+gulp.task('build:$', () => buildPlugins('$'));
+gulp.task('build:native', () => buildPlugins('native', options.name));
 
 gulp.task('build', ['build:$', 'build:native'], function() {
   console.log('build success'); // eslint-disable-line

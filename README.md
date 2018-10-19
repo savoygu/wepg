@@ -14,12 +14,31 @@ npm install @wepg/pageswitch-jquery
 
 ## 新建插件开发结构
 
+例如：开发一个轮播图插件
+
 ```bash
 # Carousel 会作为全局对象，所以首字符必须大写
 npm run new -- Carousel 轮播图
 ```
 
-## 项目诞生
+## 运行与构建
+
+```bash
+# 开发 jQuery tab 插件
+name=tab npm run dev:$
+
+# 开发原生 js tab插件
+name=tab npm run dev:native
+
+# 构建 jQuery 插件
+npm run build:$
+
+# 构建原生 js 插件
+npm run build:native
+
+# 构建所有 js 插件
+npm run build
+```
 
 ## 项目搭建
 

@@ -45,6 +45,14 @@ export default class ${PluginName}{
 }`
   },
   {
+    filename: 'src/index.scss',
+    content: `@import "sass-bem/bem";
+
+$bem-component-namespace: 'wepg';
+
+@include c(${pluginname}) {}`
+  },
+  {
     filename: 'package.json',
     content: `{
   "name": "@wepg/${pluginname}",
@@ -88,21 +96,19 @@ export default class ${PluginName}{
     html, body {
       height: 100%;
     }
-    #container {
-      height: 100%;
+    body {
       background-color: burlywood;
     }
     h1 {
-      padding-top: 80px;
+      padding: 60px 0 20px;
       text-align: center;
       color: white;
     }
   </style>
+  <link rel="stylesheet" href="./dist/${pluginname}.css">
 </head>
 <body>
-  <div id="container">
-    <h1>Thanks，开始开发原生 ${PluginName} ${chineseName}插件吧！</h1>
-  </div>
+  <h1>Thanks，开始开发原生 ${PluginName} ${chineseName}插件吧！</h1>
 </body>
 <script src="./dist/${pluginname}.js"></script>
 <script>
@@ -159,6 +165,18 @@ const Files = [
 })(jQuery);`
   },
   {
+    filename: 'src/index.scss',
+    content: `@import "sass-bem/bem";
+
+$bem-component-namespace: 'wepg';
+
+@include c(${pluginname}) {}`
+  },
+  {
+    filename: 'src/index.css',
+    content: ''
+  },
+  {
     filename: 'package.json',
     content: `{
   "name": "@wepg/${pluginname}-jquery",
@@ -199,21 +217,19 @@ const Files = [
     html, body {
       height: 100%;
     }
-    #container {
-      height: 100%;
+    body {
       background-color: burlywood;
     }
     h1 {
-      padding-top: 80px;
+      padding: 60px 0 20px;
       text-align: center;
       color: white;
     }
   </style>
+  <link rel="stylesheet" href="./src/index.css">
 </head>
 <body>
-  <div id="container">
-    <h1>Thanks，开始开发jQuery ${PluginName} ${chineseName}插件吧！</h1>
-  </div>
+  <h1>Thanks，开始开发jQuery ${PluginName} ${chineseName}插件吧！</h1>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="./src/index.js"></script>

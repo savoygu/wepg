@@ -9,10 +9,11 @@
     "build:jQuery": "gulp build:$",
     "build:native": "gulp build:native",
     "bootstrap": "(yarn || npm install) && bower install",
-    "dev:$": "npm run bootstrap && type=$ name=${name} npm run bs",
+    "dev:$": "npm run bootstrap && type=$ name=${name} npm-run-all -p watch:sass bs",
     "dev:native": "npm run bootstrap && gulp serve --name ${name}",
     "clean": "rimraf packages/**/dist",
-    "bs": "browser-sync start --server packages/${name}/${type} --files '**/*.*'",
+    "watch:sass": "node-sass -w --output-style=expanded --include-path=node_modules ./packages/${name}/${type}/src/index.scss ./packages/${name}/${type}/src/index.css",
+    "bs": "browser-sync start --server packages/${name}/${type} --files '**/*.html,**/*.js,**/*.css'",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "new": "node ./build/bin/new.js"
   },
@@ -57,16 +58,19 @@
     "gulp": "^3.9.1",
     "gulp-better-rollup": "^3.3.0",
     "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
     "husky": "^1.0.0-rc.13",
     "lerna": "^3.4.3",
     "lint-staged": "^7.2.0",
+    "node-sass": "^4.9.4",
     "npm-run-all": "^4.1.3",
     "pump": "^3.0.0",
     "rimraf": "^2.6.2",
     "rollup-plugin-babel": "^4.0.3",
-    "rollup-plugin-uglify": "^6.0.0"
+    "rollup-plugin-uglify": "^6.0.0",
+    "sass-bem": "^2.6.5"
   },
   "dependencies": {}
 }
