@@ -12,6 +12,16 @@ npm install @wepg/pageswitch
 npm install @wepg/pageswitch-jquery
 ```
 
+标签页：Tab
+
+```bash
+# 原生 JavaScript
+npm install @wepg/tab
+
+# jQuery
+npm install @wepg/tab-jquery
+```
+
 ## 新建插件开发结构
 
 例如：开发一个轮播图插件
