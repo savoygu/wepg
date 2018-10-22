@@ -111,7 +111,7 @@ const generateNativeFile = (name, type) => {
 
 const buildPlugins = (type, name) => {
   if (name !== undefined) { // 开发原生插件
-    return generateNativeFile(name, type);
+    return [generateSassFile, generateNativeFile].map(fn => fn.call(this, name, type));
   }
 
   fs.readdirSync(paths.basePath)
