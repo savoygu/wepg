@@ -8,6 +8,7 @@ const pump = require('pump');
 // const sourcemaps = require('gulp-sourcemaps');
 const rollup = require('gulp-better-rollup');
 const babel = require('rollup-plugin-babel');
+const nodeResolve = require('rollup-plugin-node-resolve');
 // const uglify = require('rollup-plugin-uglify').uglify;
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
@@ -16,8 +17,8 @@ const minimist = require('minimist');
 sass.compiler = require('node-sass');
 
 const paths = {
-  basePath: 'packages',
-  getFullPath: (pluginName, pluginType, filePath) => path.join('./packages', pluginName, pluginType, filePath)
+  basePath: 'packages/wepg',
+  getFullPath: (pluginName, pluginType, filePath) => path.join('./packages/wepg', pluginName, pluginType, filePath)
 };
 
 const knownOptions = {
@@ -72,6 +73,13 @@ const createNativePipe = (name, type, config) => {
         babel({
           exclude: 'node_modules/**'
         }),
+        nodeResolve({
+          module: true,
+          jsnext: true,
+          main: true,
+          browser: true,
+          extensions: ['.js']
+        })
         // min &&
         //   uglify({
         //     compress: {
@@ -92,7 +100,7 @@ const createNativePipe = (name, type, config) => {
 };
 
 const generateNativeFile = (name, type) => {
-  const pkg = require('./packages/' + name + '/' + type + '/package.json');
+  const pkg = require('./packages/wepg/' + name + '/' + type + '/package.json');
   const configs = {
     regular_umd: {
       output: { file: pkg.main, format: 'umd', name: pkg.moduleName }
@@ -127,7 +135,7 @@ const buildPlugins = (type, name) => {
 
 gulp.task('serve', ['build:native'], () => {
   browserSync.init({
-    server: './packages/' + options.name + '/native'
+    server: './packages/wepg/' + options.name + '/native'
   });
 
   gulp.watch(paths.getFullPath(options.name, 'native', 'src/*.scss'), ['sass']);

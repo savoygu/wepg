@@ -20,5 +20,8 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "dependencies": {
+    "@wepg/dom": "^0.0.0"
+  }
 }

@@ -23,7 +23,7 @@
  *      loop: true
  *    })
  */
-import { _prefix, on, hasClass, addClass, removeClass, setStyle, getOffset } from './dom';
+import { _prefix, on, hasClass, addClass, removeClass, setStyle, getOffset } from '@wepg/dom';
 
 export default class PageSwitch{
   constructor(element, options) {

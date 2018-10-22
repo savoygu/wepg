@@ -12,8 +12,8 @@
     "dev:$": "npm run bootstrap && type=$ name=${name} npm-run-all -p watch:sass bs",
     "dev:native": "npm run bootstrap && gulp serve --name ${name}",
     "clean": "rimraf packages/**/dist",
-    "watch:sass": "node-sass -w --output-style=expanded --include-path=node_modules ./packages/${name}/${type}/src/index.scss ./packages/${name}/${type}/dist/${name}.css",
-    "bs": "browser-sync start --server packages/${name}/${type} --files '**/*.html,**/*.js,**/*.css'",
+    "watch:sass": "node-sass -w --output-style=expanded --include-path=node_modules ./packages/wepg/${name}/${type}/src/index.scss ./packages/wepg/${name}/${type}/dist/${name}.css",
+    "bs": "browser-sync start --server packages/wepg/${name}/${type} --files '**/*.html,**/*.js,**/*.css'",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "new": "node ./build/bin/new.js"
   },
@@ -69,6 +69,7 @@
     "pump": "^3.0.0",
     "rimraf": "^2.6.2",
     "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-uglify": "^6.0.0",
     "sass-bem": "^2.6.5"
   },

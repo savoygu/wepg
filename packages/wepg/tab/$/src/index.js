@@ -38,6 +38,8 @@
         // 初始化
         var me = this;
         me.selectors = me.settings.selectors;
+        me.activeClass = me.selectors.active.substring(1);
+        me.currentClass = me.selectors.current.substring(1);
         me.navItem = me.element.find(me.selectors.nav);
         me.paneItem = me.element.find(me.selectors.pane);
 
@@ -101,10 +103,10 @@
       /*说明：切换 tab */
       _switchTab: function() {
         var me = this;
-        me.navItem.eq(me.index).addClass('active').siblings('li').removeClass('active');
+        me.navItem.eq(me.index).addClass(me.activeClass).siblings('li').removeClass(me.activeClass);
 
         if (me.effect === 'default') {
-          me.paneItem.eq(me.index).addClass('current').siblings(me.selectors.pane).removeClass('current');
+          me.paneItem.eq(me.index).addClass(me.currentClass).siblings(me.selectors.pane).removeClass(me.currentClass);
         } else if (me.effect === 'fade') {
           me.paneItem.eq(me.index).fadeIn().siblings(me.selectors.pane).fadeOut();
         }

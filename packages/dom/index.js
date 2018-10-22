@@ -196,3 +196,60 @@ export const getOffset = function(el) {
     left: box.left + window.pageXOffset - document.documentElement.clientLeft
   };
 };
+
+/**
+ * fadeIn:
+ *   displayMode: block inline-block inline
+ */
+
+const setOpacity = function (el, val) {
+  el.filters ?
+    el.style.filter = `alpha(opacity=${val})` :
+    el.style.opacity = val / 100;
+};
+
+export const fadeIn = function (el, speed = 20, opacity = 100, callback) {
+  if (el.style.display === 'block' || el.style.opacity === 1) return;
+
+  el.style.display = 'block';
+  setOpacity(el, 0);
+
+  let val = 0;
+
+  (function fade() {
+    if (!((val += 10) > opacity)) {
+      setOpacity(el, val);
+
+      if (window.requestAnimationFrame) {
+        requestAnimationFrame(fade);
+      } else {
+        setTimeout(fade, speed);
+      }
+    } else if (typeof callback === 'function') {
+      callback();
+    }
+  })();
+};
+
+/* fadeOut */
+export const fadeOut = function (el, speed = 20, opacity = 0) {
+  if (el.style.display === 'none' || el.style.opacity === 0) return;
+
+  setOpacity(el, 1);
+
+  let val = 100;
+
+  (function fade() {
+    if ((val -= 10) < opacity) {
+      el.style.display = 'none';
+    } else {
+      setOpacity(el, val);
+
+      if (window.requestAnimationFrame) {
+        requestAnimationFrame(fade);
+      } else {
+        setTimeout(fade, speed);
+      }
+    }
+  })();
+};

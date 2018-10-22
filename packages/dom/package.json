@@ -1,0 +1,19 @@
+{
+  "name": "@wepg/dom",
+  "version": "0.0.0",
+  "description": "DOM utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "DOM",
+    "util"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/dom",
+  "author": "gusaifei <savoygu@gmail.com> (https://github.com/savoygu)",
+  "license": "MIT"
+}
