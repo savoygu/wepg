@@ -21,24 +21,59 @@
       text-align: center;
       color: white;
     }
+    #container {
+      padding: 60px;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+    .tab1 .wepg-tab__content {
+      height: 200px;
+      background-color: #fff;
+    }
+    .tab1 .wepg-tab__nav {
+      color: #fff;
+      background-color: #767676;
+      cursor: pointer;
+    }
+    .tab1 .wepg-tab__nav.active {
+      color: #777;
+      background-color: #fff;
+    }
   </style>
   <link rel="stylesheet" href="./dist/tab.css">
 </head>
 <body>
   <h1>Thanks，开始开发jQuery Tab 选项卡插件吧！</h1>
 
-  <div class="wepg-tab">
-    <ul class="wepg-tab__nav">
-      <li class="active">新闻</li>
-      <li>娱乐</li>
-      <li>电影</li>
-      <li>科技</li>
-    </ul>
-    <div class="wepg-tab__content">
-      <div class="wepg-tab__pane active"></div>
-      <div class="wepg-tab__pane"></div>
-      <div class="wepg-tab__pane"></div>
-      <div class="wepg-tab__pane"></div>
+  <div id="container">
+    <div class="tab1 wepg-tab is-top">
+      <ul class="wepg-tab__nav-list">
+        <li class="wepg-tab__nav">新闻</li>
+        <li class="wepg-tab__nav">娱乐</li>
+        <li class="wepg-tab__nav active">电影</li>
+        <li class="wepg-tab__nav">科技</li>
+      </ul>
+      <div class="wepg-tab__content">
+        <div class="wepg-tab__pane">
+          <img src="./images/5.jpg" alt="">
+        </div>
+        <div class="wepg-tab__pane">
+          <img src="./images/6.jpg" alt="">
+        </div>
+        <div class="wepg-tab__pane current">
+          <img src="./images/7.jpg" alt="">
+        </div>
+        <div class="wepg-tab__pane">
+          <img src="./images/8.jpg" alt="">
+        </div>
+      </div>
+      <!-- <button class="wepg-tab__prev">PREV</button>
+      <button class="wepg-tab__next">NEXT</button> -->
     </div>
   </div>
 </body>
@@ -46,7 +81,12 @@
 <script src="./src/index.js"></script>
 <script>
   /* eslint-disable */
-  $('#container').Tab({})
+  $('.tab1').Tab({
+    "effect": "fade",
+    "autoplay": true,
+    "interval": 1000,
+    "index": 2
+  })
   /* eslint-disable */
 </script>
 </html>
