@@ -1,6 +1,6 @@
 {
   "name": "@wepg/tab-jquery",
-  "version": "0.0.0",
+  "version": "0.0.6",
   "description": "jQuery Tab 插件",
   "main": "./dist/tab.min.js",
   "repository": "https://github.com/wepg/wepg/tree/develop/packages/tab/$",
