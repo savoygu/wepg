@@ -4,28 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>PageSwitch 全屏滚动</title>
+  <title>jQuery PageSwitch 全屏滚动插件</title>
   <style>
     * {
       margin: 0;
       padding: 0;
     }
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
-    #container, .sections, .section {
-      height: 100%;
-      position: relative;
-    }
     #section1,
     #section2,
     #section3,
     #section4 {
-      background-color: #000;
-      background-size: cover;
-      background-position: 50% 50%;
-      background-repeat: no-repeat;
       text-align: center;
       color: white;
     }
@@ -41,46 +29,16 @@
     #section4 {
       background-image: url(images/4.jpg)
     }
-    .pages {
-			position:fixed;
-			list-style: none;
-		}
-		.vertical.pages {
-			right: 10px;
-			top: 50%;
-		}
-		.horizontal.pages {
-			left: 50%;
-			bottom: 10px;
-		}
-		.pages li{
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background: #fff;
-			margin: 10px 5px;
-			cursor: pointer;
-		}
-		.horizontal.pages li{
-			display: inline-block;
-			vertical-align: middle;
-		}
-		.pages li.active{
-			width: 14px;
-			height: 14px;
-			border: 2px solid #FFFE00;
-			background: none;
-			margin-left: 0;
-		}
   </style>
+  <link rel="stylesheet" href="./dist/pageswitch.css">
 </head>
 <body>
-  <div id="container">
-    <div class="sections">
-      <div class="section" id="section1">this is page 1</div>
-      <div class="section" id="section2">this is page 2</div>
-      <div class="section" id="section3">this is page 3</div>
-      <div class="section" id="section4">this is page 4</div>
+  <div class="wepg-pageswitch">
+    <div class="wepg-pageswitch__sections">
+      <div class="wepg-pageswitch__section" id="section1">this is page 1</div>
+      <div class="wepg-pageswitch__section" id="section2">this is page 2</div>
+      <div class="wepg-pageswitch__section" id="section3">this is page 3</div>
+      <div class="wepg-pageswitch__section" id="section4">this is page 4</div>
     </div>
   </div>
 </body>
@@ -89,7 +47,7 @@
 <script src="./src/index.js"></script>
 <script>
   /* eslint-disable */
-  $('#container').PageSwitch({
+  $('.wepg-pageswitch').PageSwitch({
     direction: 'horizontal',
     loop: true
   })

@@ -1,0 +1,67 @@
+@import "sass-bem/bem";
+
+$bem-component-namespace: 'wepg';
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+@include c(pageswitch) {
+  position: relative;
+  height: 100%;
+
+  @include e(sections) {
+    position: relative;
+    height: 100%;
+  }
+
+  @include e(section) {
+    position: relative;
+    height: 100%;
+    background-color: #000;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
+  @include e(pages) {
+    position:fixed;
+    list-style: none;
+
+    &.vertical {
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &.horizontal {
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+
+      li {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    li {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #fff;
+      margin: 10px 5px;
+      cursor: pointer;
+
+      &.active {
+        width: 14px;
+        height: 14px;
+        border: 2px solid #FFFE00;
+        background: none;
+        margin-left: 0;
+      }
+    }
+  }
+
+}

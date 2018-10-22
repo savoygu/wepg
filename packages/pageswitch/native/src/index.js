@@ -3,9 +3,9 @@
  *
  * 配置参数：
  *    selectors: {
- *       sections: '.sections',
- *       section: '.section',
- *       page: '.pages',
+ *       sections: '.wepg-pageswitch__sections',
+ *       section: '.swepg-pageswitch__ection',
+ *       page: '.wepg-pageswitch__pages',
  *       active: '.active'
  *     },
  *     index: 0, // 页面开始的索引
@@ -29,9 +29,9 @@ export default class PageSwitch{
   constructor(element, options) {
     var defaultOptions = {
       selectors: {
-        sections: '.sections',
-        section: '.section',
-        page: '.pages',
+        sections: '.wepg-pageswitch__sections',
+        section: '.wepg-pageswitch__section',
+        page: '.wepg-pageswitch__pages',
         active: '.active'
       },
       index: 0, // 页面开始的索引

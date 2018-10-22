@@ -5,9 +5,9 @@
  *
  * 配置参数：
  *    selectors: {
- *       sections: '.sections',
- *       section: '.section',
- *       page: '.pages',
+ *       sections: '.wepg-pageswitch__sections',
+ *       section: '.wepg-pageswitch__section',
+ *       page: '.wepg-pageswitch__pages',
  *       active: '.active'
  *     },
  *     index: 0, // 页面开始的索引
@@ -65,7 +65,7 @@
 
         me.canScroll = true;
 
-        if (!me.direction) {
+        if (!me.direction || me.index) {
           me._initLayout();
         }
 
@@ -106,10 +106,15 @@
       /*说明：主要针对横屏情况进行页面布局 */
       _initLayout: function() {
         var me = this;
-        var width = (me.pagesCount * 100) + '%',
-          cellWidth = (100 / me.pagesCount).toFixed(2) + '%';
-        me.sections.width(width);
-        me.section.width(cellWidth).css('float', 'left');
+        if(!me.direction) {
+          var width = (me.pagesCount * 100) + '%',
+            cellWidth = (100 / me.pagesCount).toFixed(2) + '%';
+          me.sections.width(width);
+          me.section.width(cellWidth).css('float', 'left');
+        }
+        if(me.index){
+          me._scrollPage(true);
+        }
       },
       /*说明：实现分页的dom结构及css样式 */
       _initPaging: function () {
@@ -201,7 +206,7 @@
         }
       },
       /*说明：滑动动画 */
-      _scrollPage: function() {
+      _scrollPage: function(init) {
         var me = this,
           dest = me.section.eq(me.index).position();
         if (!dest) return;
@@ -221,7 +226,7 @@
           });
         }
 
-        if (me.settings.pagination) {
+        if (me.settings.pagination && !init) {
           me.pageItem.eq(me.index).addClass(me.activeClass).siblings('li').removeClass(me.activeClass);
         }
       }
@@ -244,9 +249,9 @@
 
   $.fn.PageSwitch.defaults = {
     selectors: {
-      sections: '.sections',
-      section: '.section',
-      page: '.pages',
+      sections: '.wepg-pageswitch__sections',
+      section: '.wepg-pageswitch__section',
+      page: '.wepg-pageswitch__pages',
       active: '.active'
     },
     index: 0, // 页面开始的索引
