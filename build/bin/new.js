@@ -17,8 +17,8 @@ const fileSave = require('file-save');
 const PluginName = process.argv[2];
 const chineseName = process.argv[3] || PluginName;
 const pluginname = PluginName.toLowerCase();
-const Package$Path = path.resolve(__dirname, '../../packages', pluginname, '$');
-const PackageNativePath = path.resolve(__dirname, '../../packages', pluginname, 'native');
+const Package$Path = path.resolve(__dirname, '../../packages/wepg', pluginname, '$');
+const PackageNativePath = path.resolve(__dirname, '../../packages/wepg', pluginname, 'native');
 
 const NativeFiles = [
   {
@@ -242,7 +242,7 @@ $bem-component-namespace: 'wepg';
   }
 ];
 
-const pluginNames = fs.readdirSync(path.resolve(__dirname, '../../packages'))
+const pluginNames = fs.readdirSync(path.resolve(__dirname, '../../packages/wepg'))
   .filter(function(name) { return name.indexOf('.') === -1; });
 
 if (pluginNames.indexOf(pluginname) > -1) {
