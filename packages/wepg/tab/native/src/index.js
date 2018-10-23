@@ -2,7 +2,7 @@
 * Tab 选项卡
 *
 */
-import { on, hasClass, removeClass, addClass, fadeIn, fadeOut } from '@wepg/dom';
+import { on, delegate, removeClass, removeAllClass, addClass, fadeIn, fadeOut } from '@wepg/dom';
 
 export default class Tab{
   constructor(element, options) {
@@ -15,13 +15,15 @@ export default class Tab{
       },
       controls: {
         prev: '.wepg-tab__prev', // 切换到上一个 tab
-        next: '.wepg-tab__next' // 切换到下一个 tab
+        next: '.wepg-tab__next', // 切换到下一个 tab
+        trigger: 'click'
       },
       index: 0, // 默认显示第几个 tab
       trigger: 'click', // 触发的方式：click, mouseover
       effect: 'default', // 切换的效果：default, fade
       autoplay: false, // 是否自动切换
-      interval: 3000
+      interval: 3000, // 切换间隔时长，单位 ms
+      tabPosition: 'top' // 标签位置：top, right, bottom, left
     };
 
     this.settings = Object.assign({}, defaultOptions, options || {});
@@ -32,6 +34,7 @@ export default class Tab{
   init() {
     const me = this;
     me.selectors = me.settings.selectors;
+    me.controls = me.settings.controls;
     me.activeClass = me.selectors.active.substring(1);
     me.currentClass = me.selectors.current.substring(1);
     me.navItem = me.element.querySelectorAll(me.selectors.nav);
@@ -43,6 +46,8 @@ export default class Tab{
     me.index = (me.settings.index >= 0 && me.settings.index < me.tabsCount) ? me.settings.index : 0;
 
     me.timer = null;
+
+    addClass(me.element, `is-${me.settings.tabPosition}`);
 
     me._initEvent();
 
@@ -57,27 +62,12 @@ export default class Tab{
 
   _initEvent() {
     const me = this;
-    const navClass = me.selectors.nav.substring(1);
 
-    if (me.trigger === 'click') {
-      on(me.element, 'click', function(e) {
-        // if (!hasClass(e.target, navClass) || hasClass(e.target, me.activeClass)) return;
-        if (!hasClass(e.target, navClass)) return;
-
-        const navItem = [].slice.call(me.navItem);
-        me.index = navItem.indexOf(e.target);
-        me._switchTab();
-      });
-    } else if(me.trigger === 'mouseover') {
-      on(me.element, 'mouseover', function(e) {
-        // if (!hasClass(e.target, navClass) || hasClass(e.target, me.activeClass)) return;
-        if (!hasClass(e.target, navClass)) return;
-
-        const navItem = [].slice.call(me.navItem);
-        me.index = navItem.indexOf(e.target);
-        me._switchTab();
-      });
-    }
+    delegate(me.element, me.selectors.nav, me.trigger, function(e) {
+      const navItem = [].slice.call(me.navItem);
+      me.index = navItem.indexOf(e.target);
+      me._switchTab();
+    });
 
     if (me.settings.autoplay) {
       on(me.element, 'mouseenter', function() {
@@ -89,7 +79,7 @@ export default class Tab{
       });
     }
 
-    on(document.querySelector(me.settings.controls.prev), me.trigger, function() {
+    delegate(me.element, me.controls.prev, me.controls.trigger, function() {
       me.index--;
       if(me.index < 0) {
         me.index = me.tabsCount - 1;
@@ -97,7 +87,7 @@ export default class Tab{
       me._switchTab();
     });
 
-    on(document.querySelector(me.settings.controls.next), me.trigger, function() {
+    delegate(me.element, me.controls.next, me.controls.trigger, function() {
       me.index++;
       if (me.index >= me.tabsCount) {
         me.index = 0;
@@ -109,21 +99,11 @@ export default class Tab{
   _switchTab() {
     const me = this;
 
-    me.navItem.forEach(function(item) {
-      if (hasClass(item, me.activeClass)) {
-        removeClass(item, me.activeClass);
-      }
-    });
-
+    removeAllClass(me.navItem, me.activeClass);
     addClass(me.navItem[me.index], me.activeClass);
 
     if (me.effect === 'default') {
-      me.paneItem.forEach(function(item) {
-        if (hasClass(item, me.currentClass)) {
-          removeClass(item, me.currentClass);
-        }
-      });
-
+      removeAllClass(me.paneItem, me.currentClass);
       addClass(me.paneItem[me.index], me.currentClass);
     } else if (me.effect === 'fade') {
       me.paneItem.forEach(function(item, index) {
@@ -135,7 +115,6 @@ export default class Tab{
           removeClass(item, me.currentClass);
         }
       });
-
     }
   }
 

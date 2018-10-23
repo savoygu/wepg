@@ -38,6 +38,7 @@
         // 初始化
         var me = this;
         me.selectors = me.settings.selectors;
+        me.controls = me.settings.controls;
         me.activeClass = me.selectors.active.substring(1);
         me.currentClass = me.selectors.current.substring(1);
         me.navItem = me.element.find(me.selectors.nav);
@@ -84,7 +85,7 @@
           });
         }
 
-        me.element.on(me.trigger, me.settings.controls.prev, function() {
+        me.element.on(me.controls.trigger, me.controls.prev, function() {
           me.index--;
           if(me.index < 0) {
             me.index = me.tabsCount - 1;
@@ -92,7 +93,7 @@
           me._switchTab();
         });
 
-        me.element.on(me.trigger, me.settings.controls.next, function() {
+        me.element.on(me.controls.trigger, me.controls.next, function() {
           me.index++;
           if (me.index >= me.tabsCount) {
             me.index = 0;
@@ -152,13 +153,15 @@
     },
     controls: {
       prev: '.wepg-tab__prev', // 切换到上一个 tab
-      next: '.wepg-tab__next' // 切换到下一个 tab
+      next: '.wepg-tab__next', // 切换到下一个 tab
+      trigger: 'click'
     },
     index: 0, // 默认显示第几个 tab
     trigger: 'click', // 触发的方式：click, mouseover
     effect: 'default', // 切换的效果：default, fade
     autoplay: false, // 是否自动切换
-    interval: 3000 // 自动切换的时间间隔，单位为毫秒
+    interval: 3000, // 自动切换的时间间隔，单位为毫秒
+    tabPosition: 'top' // 标签位置：top, right, bottom, left
   };
 
 })(jQuery);

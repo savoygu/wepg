@@ -72,8 +72,8 @@
           <img src="./images/8.jpg" alt="">
         </div>
       </div>
-      <!-- <button class="wepg-tab__prev">PREV</button>
-      <button class="wepg-tab__next">NEXT</button> -->
+      <button class="wepg-tab__prev">PREV</button>
+      <button class="wepg-tab__next">NEXT</button>
     </div>
   </div>
 </body>
@@ -81,9 +81,10 @@
 <script>
   /* eslint-disable */
   new Tab('.tab1', {
-    trigger: 'mouseover',
-    effect: 'fade',
-    autoplay: true,
+    trigger: 'click',
+    effect: 'default',
+    autoplay: false,
+    tabPosition: 'left',
     interval: 1000
   })
   /* eslint-disable */
