@@ -17,8 +17,8 @@ const minimist = require('minimist');
 sass.compiler = require('node-sass');
 
 const paths = {
-  basePath: 'packages/wepg',
-  getFullPath: (pluginName, pluginType, filePath) => path.join('./packages/wepg', pluginName, pluginType, filePath)
+  basePath: 'packages',
+  getPkgPath: (packageName, pluginName, pluginType) => './packages/' + packageName + '/' + pluginName + '/' + pluginType
 };
 
 const knownOptions = {
@@ -27,9 +27,9 @@ const knownOptions = {
 
 const options = minimist(process.argv.slice(2), knownOptions);
 
-const createSassPipe = (name, type, min) => {
+const createSassPipe = (name, source, destination, min) => {
   return [
-    gulp.src(paths.getFullPath(name, type, 'src/*.scss')),
+    gulp.src(source),
     sass.sync({
       outputStyle: min ? 'compressed' : 'expanded',
       includePaths: ['node_modules']
@@ -38,35 +38,45 @@ const createSassPipe = (name, type, min) => {
       path.basename = name;
       min && (path.extname = '.min.css');
     }),
-    gulp.dest(paths.getFullPath(name, type, 'dist'))
+    gulp.dest(destination)
   ].filter(Boolean);
 };
 
-const generateSassFile = (name, type) => pump(
-  createSassPipe(name, type),
-  () => pump(createSassPipe(name, type, true))
-);
+const generateSassFile = (pkgPath, name) => {
+  const source = path.join(pkgPath, 'src/*.scss');
+  const destination = path.join(pkgPath, 'dist');
 
-const create$Pipe = (name, type, min) => {
+  return pump(
+    createSassPipe(name, source, destination),
+    () => pump(createSassPipe(name, source, destination, true))
+  );
+};
+
+const create$Pipe = (name, source, destination, min) => {
   return [
-    gulp.src(paths.getFullPath(name, type, 'src/index.js')),
+    gulp.src(source),
     min && uglify(),
     rename(path => {
       path.basename = name;
       min && (path.extname = '.min.js');
     }),
-    gulp.dest(paths.getFullPath(name, type, 'dist'))
+    gulp.dest(destination)
   ].filter(Boolean);
 };
 
-const generate$File = (name, type) => pump(
-  create$Pipe(name, type),
-  () => pump(create$Pipe(name, type, true))
-);
+const generate$File = (pkgPath, name) => {
+  const source = path.join(pkgPath, 'src/index.js');
+  const destination = path.join(pkgPath, 'dist');
 
-const createNativePipe = (name, type, config) => {
+  return pump(
+    create$Pipe(name, source, destination),
+    () => pump(create$Pipe(name, source, destination, true))
+  );
+};
+
+const createNativePipe = (source, destination, config) => {
   const min = config.env === 'production';
-  let next = gulp.src(paths.getFullPath(name, type, 'src/index.js'))
+  let next = gulp.src(source)
     // .pipe(sourcemaps.write())
     .pipe(rollup({
       plugins: [
@@ -96,11 +106,11 @@ const createNativePipe = (name, type, config) => {
     next = next.pipe(uglify());
   }
   // next = next.pipe(sourcemaps.write());
-  next.pipe(gulp.dest(paths.getFullPath(name, type, 'dist')));
+  next.pipe(gulp.dest(destination));
 };
 
-const generateNativeFile = (name, type) => {
-  const pkg = require('./packages/wepg/' + name + '/' + type + '/package.json');
+const generateNativeFile = (pkgPath) => {
+  const pkg = require(pkgPath + '/package.json');
   const configs = {
     regular_umd: {
       output: { file: pkg.main, format: 'umd', name: pkg.moduleName }
@@ -114,44 +124,59 @@ const generateNativeFile = (name, type) => {
     },
   };
   const buildTypes = Object.keys(configs);
-  buildTypes.map(buildType => createNativePipe(name, type, configs[buildType]));
+  buildTypes.map(buildType => createNativePipe(
+    path.join(pkgPath, 'src/index.js'),
+    path.join(pkgPath, 'dist'),
+    configs[buildType])
+  );
 };
 
 const buildPlugins = (type, name) => {
+  const pkgPath = paths.getPkgPath('wepg', name, type);
+
   if (name !== undefined) { // 开发原生插件
-    return [generateSassFile, generateNativeFile].map(fn => fn.call(this, name, type));
+    return [generateSassFile, generateNativeFile].map(fn => fn.call(this, pkgPath, name));
   }
 
-  fs.readdirSync(paths.basePath)
+  fs.readdirSync(paths.basePath + '/wepg')
     .filter(name => name.indexOf('.') === -1)
     .map(pluginName => {
-      generateSassFile(pluginName, type);
+      const pluginPath = paths.getPkgPath('wepg', pluginName, type);
+      generateSassFile(pluginPath, pluginName);
 
       type === 'native' ?
-        generateNativeFile(pluginName, type) :
-        generate$File(pluginName, type);
+        generateNativeFile(pluginPath) :
+        generate$File(pluginPath, pluginName);
     });
 };
 
 gulp.task('serve', ['build:native'], () => {
+  const pkgPath = paths.getPkgPath('wepg', options.name, 'native');
+
   browserSync.init({
     server: './packages/wepg/' + options.name + '/native'
   });
 
-  gulp.watch(paths.getFullPath(options.name, 'native', 'src/*.scss'), ['sass']);
-  gulp.watch(paths.getFullPath(options.name, 'native', 'src/*.js'), ['build:native']);
+  gulp.watch(path.join(pkgPath, 'src/*.scss'), ['sass']);
+  gulp.watch(path.join('./packages/!(wepg)/**/src/*.js'), ['build:util']);
+  gulp.watch(path.join(pkgPath, 'src/*.js'), ['build:native']);
   gulp.watch([
-    paths.getFullPath(options.name, 'native', '**/*.html'),
-    paths.getFullPath(options.name, 'native', '**/*.css'),
-    paths.getFullPath(options.name, 'native', '**/*.js')
+    path.join(pkgPath, '**/*.html'),
+    path.join(pkgPath, '**/*.css'),
+    path.join(pkgPath, '**/*.js')
   ]).on('change', reload);
 });
 
-gulp.task('sass', () => generateSassFile(options.name, 'native'));
+gulp.task('sass', () => generateSassFile(paths.getPkgPath('wepg', options.name, 'native'), options.name));
 gulp.task('build:$', () => buildPlugins('$'));
-gulp.task('build:native', () => buildPlugins('native', options.name));
+gulp.task('build:native', ['build:util'], () => buildPlugins('native', options.name));
+gulp.task('build:util', () => {
+  fs.readdirSync(paths.basePath)
+    .filter(name => (name.indexOf('.') === -1 && name !== 'wepg'))
+    .map(packageName => generateNativeFile('./packages/' + packageName));
+});
 
-gulp.task('build', ['build:$', 'build:native'], function() {
+gulp.task('build', ['build:util', 'build:$', 'build:native'], function() {
   console.log('build success'); // eslint-disable-line
 });
 
