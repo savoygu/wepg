@@ -6,7 +6,7 @@ const ieVersion = Number(document.documentMode);
 /*实现：判断某个元素的 css 样式是否存在 transition 属性 */
 /*参数：dom 元素 */
 /*返回值：boolean, 有则返回浏览器样式前缀，否则返回 false */
-export const _prefix = (function(temp) {
+const _prefix = (function(temp) {
   var aPrefix = ['webkit', 'Moz', 'o', 'ms'],
     props = '';
   for (var i in aPrefix) {
@@ -19,19 +19,19 @@ export const _prefix = (function(temp) {
 })(document.createElement('wepg'));
 
 /*去除空格 */
-export const trim = function(string) {
+const trim = function(string) {
   return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 };
 
 /*转换为驼峰标识 */
-export const camelCase = function(name) {
+const camelCase = function(name) {
   return name.replace(SPECIAL_CHARS_REGEXP, function(_, separator, letter, offset) {
     return offset ? letter.toUpperCase() : letter;
   }).replace(MOZ_HACK_REGEXP, 'Moz$1');
 };
 
 /*绑定事件 */
-export const on = (function() {
+const on = (function() {
   if (document.addEventListener) {
     return function(element, event, handler) {
       if (element && event && handler) {
@@ -48,7 +48,7 @@ export const on = (function() {
 })();
 
 /*移除事件监听 */
-export const off = (function() {
+const off = (function() {
   if (document.removeEventListener) {
     return function(element, event, handler) {
       if (element && event) {
@@ -65,7 +65,7 @@ export const off = (function() {
 })();
 
 /*一次就好 */
-export const once = function(el, event, fn) {
+const once = function(el, event, fn) {
   var listener = function() {
     if (fn) {
       fn.apply(this, arguments);
@@ -76,7 +76,7 @@ export const once = function(el, event, fn) {
 };
 
 /*获取样式属性值 */
-export const getStyle = ieVersion < 9 ? function(element, styleName) {
+const getStyle = ieVersion < 9 ? function(element, styleName) {
   if (!element || !styleName) return null;
   styleName = camelCase(styleName);
   if (styleName === 'float') {
@@ -111,7 +111,7 @@ export const getStyle = ieVersion < 9 ? function(element, styleName) {
 };
 
 /*设置样式 */
-export const setStyle = function(element, styleName, value) {
+const setStyle = function(element, styleName, value) {
   if (!element || !styleName) return;
 
   if (typeof styleName === 'object') {
@@ -131,7 +131,7 @@ export const setStyle = function(element, styleName, value) {
 };
 
 /*是否包含 class */
-export const hasClass = function(el, cls) {
+const hasClass = function(el, cls) {
   if (!el || !cls) return false;
   if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
   if (el.classList) {
@@ -142,7 +142,7 @@ export const hasClass = function(el, cls) {
 };
 
 /*添加 class */
-export const addClass = function(el, cls) {
+const addClass = function(el, cls) {
   if (!el) return;
   var curClass = el.className;
   var classes = (cls || '').split(' ');
@@ -164,8 +164,13 @@ export const addClass = function(el, cls) {
   }
 };
 
+const addAllClass = function(els, cls) {
+  if (!(els && els.length) || !cls) return;
+  els.forEach(el => removeClass(el, cls));
+};
+
 /*移除 class */
-export const removeClass = function(el, cls) {
+const removeClass = function(el, cls) {
   if (!el || !cls) return;
   var classes = cls.split(' ');
   var curClass = ' ' + el.className + ' ';
@@ -187,8 +192,13 @@ export const removeClass = function(el, cls) {
   }
 };
 
+const removeAllClass = function(els, cls) {
+  if (!(els && els.length) || !cls) return;
+  els.forEach(el => removeClass(el, cls));
+};
+
 /*获取 left 和 top 距离 */
-export const getOffset = function(el) {
+const getOffset = function(el) {
   var box = el.getBoundingClientRect();
 
   return {
@@ -208,7 +218,7 @@ const setOpacity = function (el, val) {
     el.style.opacity = val / 100;
 };
 
-export const fadeIn = function (el, speed = 20, opacity = 100, callback) {
+const fadeIn = function (el, speed = 20, opacity = 100, callback) {
   if (el.style.display === 'block' || el.style.opacity === 1) return;
 
   el.style.display = 'block';
@@ -232,7 +242,7 @@ export const fadeIn = function (el, speed = 20, opacity = 100, callback) {
 };
 
 /* fadeOut */
-export const fadeOut = function (el, speed = 20, opacity = 0) {
+const fadeOut = function (el, speed = 20, opacity = 0) {
   if (el.style.display === 'none' || el.style.opacity === 0) return;
 
   setOpacity(el, 1);
@@ -252,4 +262,24 @@ export const fadeOut = function (el, speed = 20, opacity = 0) {
       }
     }
   })();
+};
+
+
+export {
+  _prefix,
+  trim,
+  camelCase,
+  on as domOn,
+  off as domOff,
+  once as domOnce,
+  getStyle,
+  setStyle,
+  hasClass,
+  addClass,
+  addAllClass,
+  removeClass,
+  removeAllClass,
+  getOffset,
+  fadeIn,
+  fadeOut
 };

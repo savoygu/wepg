@@ -2,7 +2,10 @@
   "name": "@wepg/dom",
   "version": "0.0.6",
   "description": "DOM utils",
-  "main": "index.js",
+  "main": "./dist/dom.js",
+  "module": "./dist/dom.esm.js",
+  "jsnext:main": "./dist/dom.esm.js",
+  "unpkg": "./dist/dom.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

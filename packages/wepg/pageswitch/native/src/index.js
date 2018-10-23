@@ -23,7 +23,7 @@
  *      loop: true
  *    })
  */
-import { _prefix, on, hasClass, addClass, removeClass, setStyle, getOffset } from '@wepg/dom';
+import { _prefix, on, delegate, addClass, setStyle, getOffset, removeAllClass } from '@wepg/dom';
 
 export default class PageSwitch{
   constructor(element, options) {
@@ -145,33 +145,29 @@ export default class PageSwitch{
     var me = this;
 
     // 点击事件
-    on(me.element, 'click', function(e) {
-      if (e.target && e.target.tagName !== 'LI') return;
-
+    delegate(me.element, `${me.selectors.page} li`, 'click', function(e) {
       var pageItem = [].slice.call(me.pageItem);
       me.index = pageItem.indexOf(e.target);
       me._scrollPage();
     });
 
     // 鼠标事件
-    ['DOMMouseScroll', 'mousewheel'].forEach(function(eventName) {
-      on(me.element, eventName, function(e) {
-        if (me.canScroll) {
-          var delta = e.wheelDelta || e.detail;
+    on(me.element, ['DOMMouseScroll', 'mousewheel'], function(e) {
+      if (me.canScroll) {
+        var delta = e.wheelDelta || e.detail;
 
-          if (
-            delta > 0 &&
-            (me.index !== 0 && !me.settings.loop || me.settings.loop)
-          ) {
-            me.prev();
-          } else if (
-            delta < 0 &&
-            (me.index < (me.pagesCount - 1) && !me.settings.loop || me.settings.loop)
-          ) {
-            me.next();
-          }
+        if (
+          delta > 0 &&
+              (me.index !== 0 && !me.settings.loop || me.settings.loop)
+        ) {
+          me.prev();
+        } else if (
+          delta < 0 &&
+              (me.index < (me.pagesCount - 1) && !me.settings.loop || me.settings.loop)
+        ) {
+          me.next();
         }
-      });
+      }
     });
 
     // 键盘事件
@@ -204,13 +200,11 @@ export default class PageSwitch{
     });
 
     if (_prefix) {
-      ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'otransitionend'].forEach(function(eventName) {
-        on(me.sections, eventName, function() {
-          me.canScroll = true;
-          if (me.settings.callback && typeof me.settings.callback === 'function') {
-            me.settings.callback();
-          }
-        });
+      on(me.sections, ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'otransitionend'], function() {
+        me.canScroll = true;
+        if (me.settings.callback && typeof me.settings.callback === 'function') {
+          me.settings.callback();
+        }
       });
     }
   }
@@ -250,11 +244,7 @@ export default class PageSwitch{
     }
 
     if (me.settings.pagination) {
-      me.pageItem.forEach(function(item) {
-        if (hasClass(item, me.activeClass)) {
-          removeClass(item, me.activeClass);
-        }
-      });
+      removeAllClass(me.pageItem, me.activeClass);
       addClass(me.pageItem[me.index], me.activeClass);
     }
   }
