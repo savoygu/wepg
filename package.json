@@ -13,7 +13,7 @@
     "dev:native": "npm run bootstrap && gulp serve --name ${name}",
     "clean": "rimraf packages/**/dist",
     "watch:sass": "node-sass -w --output-style=expanded --include-path=node_modules ./packages/wepg/${name}/${type}/src/index.scss ./packages/wepg/${name}/${type}/dist/${name}.css",
-    "bs": "browser-sync start --server packages/wepg/${name}/${type} --files '**/*.html,**/*.js,**/*.css'",
+    "bs": "browser-sync start --server ./packages/wepg/${name}/${type} --files '**/*.html,**/*.js,**/*.css'",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "new": "node ./build/bin/new.js"
   },

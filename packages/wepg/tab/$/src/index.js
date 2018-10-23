@@ -51,6 +51,8 @@
 
         me.timer = null;
 
+        me.element.addClass('is-' + me.settings.tabPosition);
+
         me._initEvent();
 
         if (me.index > 0) {

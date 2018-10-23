@@ -51,7 +51,7 @@
   <h1>Thanks，开始开发jQuery Tab 选项卡插件吧！</h1>
 
   <div id="container">
-    <div class="tab1 wepg-tab is-left">
+    <div class="tab1 wepg-tab">
       <ul class="wepg-tab__nav-list">
         <li class="wepg-tab__nav">新闻</li>
         <li class="wepg-tab__nav">娱乐</li>
@@ -82,10 +82,11 @@
 <script>
   /* eslint-disable */
   $('.tab1').Tab({
-    "effect": "fade",
-    "autoplay": true,
-    "interval": 1000,
-    "index": 2
+    effect: "fade",
+    autoplay: true,
+    interval: 1000,
+    index: 2,
+    tabPosition: 'right'
   })
   /* eslint-disable */
 </script>
