@@ -1,7 +1,7 @@
 {
   "name": "@wepg/pageswitch",
   "moduleName": "PageSwitch",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "原生 PageSwitch 插件",
   "main": "./dist/pageswitch.js",
   "module": "./dist/pageswitch.esm.js",
@@ -22,6 +22,6 @@
     "src"
   ],
   "dependencies": {
-    "@wepg/dom": "^0.0.6"
+    "@wepg/dom": "^0.0.7"
   }
 }

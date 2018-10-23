@@ -1,6 +1,6 @@
 {
   "name": "@wepg/pageswitch-jquery",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "jQuery PageSwitch 插件",
   "main": "./dist/pageswitch.min.js",
   "repository": "https://github.com/wepg/wepg/tree/develop/packages/pageswitch/$",
