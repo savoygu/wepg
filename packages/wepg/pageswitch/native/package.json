@@ -12,7 +12,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "https://github.com/wepg/wepg/tree/develop/packages/pageswitch/native",
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/wepg/pageswitch/native",
   "keywords": [
     "wepg",
     "pageswitch"

@@ -12,7 +12,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "https://github.com/wepg/wepg/tree/develop/packages/tab/native",
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/wepg/tab/native",
   "keywords": [
     "wepg",
     "tab"

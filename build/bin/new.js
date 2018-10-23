@@ -68,7 +68,7 @@ $bem-component-namespace: 'wepg';
   "publishConfig": {
     "access": "public"
   },
-  "repository": "https://github.com/wepg/wepg/tree/develop/packages/${pluginname}/native",
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/wepg/${pluginname}/native",
   "keywords": [
     "wepg",
     "${pluginname}"
@@ -183,7 +183,7 @@ $bem-component-namespace: 'wepg';
   "version": "0.0.0",
   "description": "jQuery ${PluginName} 插件",
   "main": "./dist/${pluginname}.min.js",
-  "repository": "https://github.com/wepg/wepg/tree/develop/packages/${pluginname}/$",
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/wepg/${pluginname}/$",
   "author": "savoygu <savoygu@126.com>",
   "license": "MIT",
   "publishConfig": {
