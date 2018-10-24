@@ -2,7 +2,7 @@
 
 ## 安装
 
-全屏滚动：PageSwitch
+全屏滚动：PageSwitch [预览](https://codepen.io/savoygu/pen/WaYNbo)
 
 ```bash
 # 原生 JavaScript
@@ -12,7 +12,7 @@ npm install @wepg/pageswitch
 npm install @wepg/pageswitch-jquery
 ```
 
-标签页：Tab
+标签页：Tab [预览](https://codepen.io/savoygu/pen/bmQGvR)
 
 ```bash
 # 原生 JavaScript
