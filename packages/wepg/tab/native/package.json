@@ -1,7 +1,7 @@
 {
   "name": "@wepg/tab",
   "moduleName": "Tab",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "原生 Tab 插件",
   "main": "./dist/tab.js",
   "module": "./dist/tab.esm.js",
@@ -22,7 +22,7 @@
     "src"
   ],
   "dependencies": {
-    "@wepg/dom": "^0.0.7",
-    "@wepg/utils": "^0.0.0"
+    "@wepg/dom": "^0.0.8",
+    "@wepg/utils": "^0.0.8"
   }
 }

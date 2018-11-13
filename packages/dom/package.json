@@ -1,6 +1,6 @@
 {
   "name": "@wepg/dom",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "DOM utils",
   "main": "./dist/dom.js",
   "module": "./dist/dom.esm.js",

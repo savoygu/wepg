@@ -1,9 +1,9 @@
 {
-  "name": "@wepg/tab-jquery",
+  "name": "@wepg/carousel-jquery",
   "version": "0.0.8",
-  "description": "jQuery Tab 插件",
-  "main": "./dist/tab.min.js",
-  "repository": "https://github.com/wepg/wepg/tree/develop/packages/wepg/tab/$",
+  "description": "jQuery Carousel 插件",
+  "main": "./dist/carousel.min.js",
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/wepg/carousel/$",
   "author": "savoygu <savoygu@126.com>",
   "license": "MIT",
   "publishConfig": {
@@ -11,7 +11,7 @@
   },
   "keywords": [
     "wepg",
-    "tab",
+    "carousel",
     "jquery"
   ],
   "files": [

@@ -1,6 +1,6 @@
 {
   "name": "@wepg/utils",
-  "version": "0.0.0",
+  "version": "0.0.8",
   "description": "Common utils",
   "main": "./dist/utils.js",
   "module": "./dist/utils.esm.js",

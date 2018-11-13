@@ -1,0 +1,24 @@
+{
+  "name": "@wepg/carousel",
+  "moduleName": "Carousel",
+  "version": "0.0.8",
+  "description": "原生 Carousel 插件",
+  "main": "./dist/carousel.js",
+  "module": "./dist/carousel.esm.js",
+  "jsnext:main": "./dist/carousel.esm.js",
+  "unpkg": "./dist/carousel.min.js",
+  "author": "savoygu <savoygu@126.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/wepg/carousel/native",
+  "keywords": [
+    "wepg",
+    "carousel"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ]
+}
