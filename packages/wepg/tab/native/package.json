@@ -22,6 +22,7 @@
     "src"
   ],
   "dependencies": {
-    "@wepg/dom": "^0.0.7"
+    "@wepg/dom": "^0.0.7",
+    "@wepg/utils": "^0.0.0"
   }
 }

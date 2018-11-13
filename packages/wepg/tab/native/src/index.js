@@ -3,6 +3,7 @@
 *
 */
 import { on, delegate, removeClass, removeAllClass, addClass, fadeIn, fadeOut } from '@wepg/dom';
+import { assign } from '@wepg/utils';
 
 export default class Tab{
   constructor(element, options) {
@@ -26,7 +27,7 @@ export default class Tab{
       tabPosition: 'top' // 标签位置：top, right, bottom, left
     };
 
-    this.settings = Object.assign({}, defaultOptions, options || {});
+    this.settings = assign({}, defaultOptions, options || {});
     this.element = document.querySelector(element);
     this.init();
   }

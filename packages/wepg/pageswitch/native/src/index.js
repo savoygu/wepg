@@ -24,6 +24,7 @@
  *    })
  */
 import { _prefix, on, delegate, addClass, setStyle, getOffset, removeAllClass } from '@wepg/dom';
+import { assign } from '@wepg/utils';
 
 export default class PageSwitch{
   constructor(element, options) {
@@ -44,7 +45,7 @@ export default class PageSwitch{
       callback: '' // 动画执行结束后的回调函数
     };
 
-    this.settings = Object.assign({}, defaultOptions, options || {});
+    this.settings = assign({}, defaultOptions, options || {});
     this.element = document.querySelector(element);
     this.init();
   }
