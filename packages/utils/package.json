@@ -1,0 +1,22 @@
+{
+  "name": "@wepg/utils",
+  "version": "0.0.0",
+  "description": "Common utils",
+  "main": "./dist/utils.js",
+  "module": "./dist/utils.esm.js",
+  "jsnext:main": "./dist/utils.esm.js",
+  "unpkg": "./dist/utils.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "polyfill",
+    "utils"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/wepg/wepg/tree/develop/packages/utils",
+  "author": "gusaifei <savoygu@gmail.com> (https://github.com/savoygu)",
+  "license": "MIT"
+}
